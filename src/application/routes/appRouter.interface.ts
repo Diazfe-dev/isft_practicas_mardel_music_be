@@ -1,9 +1,26 @@
 import { Router } from "express";
 
-interface IAppRouter {
-    setGlobalPrefix(prefix: string): this;
-    addRoutes(prefix: string, router: Router): this;
-    getRouter(): Router;
+
+abstract class AppRouter {
+    protected readonly router: Router;
+
+    constructor() {
+        this.router = Router();
+    }
+
+    setGlobalPrefix(prefix: string): this {
+        this.router.use(prefix, this.router);
+        return this;
+    }
+
+    addRoutes(prefix: string, router: Router): this {
+        this.router.use(prefix, router);
+        return this;
+    }
+
+    getRouter(): Router {
+        return this.router;
+    }
 }
 
-export default IAppRouter;
+export default AppRouter;

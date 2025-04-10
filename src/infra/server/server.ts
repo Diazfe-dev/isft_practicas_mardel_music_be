@@ -1,16 +1,11 @@
 import express, { Router, RequestHandler } from "express";
-import IServer from "./application/server/server.interface";
+import IServer from "../../application/server/server.interface";
 
 class Server implements IServer {
-
     private static instance: Server | null = null;
-
     public readonly app = express();
-
     private port: number;
-
     private middlewares: RequestHandler[] = [];
-
     private routes: Router;
 
     private constructor({ port, routes }: { port: number; routes: Router }) {
